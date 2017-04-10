@@ -1,0 +1,66 @@
+<div class='col-sm-12'>
+  <div class='panel panel-info col-sm-6'>
+    <div class="panel-heading">
+      <h3 class="panel-title text-center">
+        Team
+      </h3>
+    </div>
+    <div class="panel-body">
+      <form action="/new/team" method="post">
+        Team:
+        <input id='name' name='name' type = 'text' />
+        <button class='btn btn-success' id ='addTeam' type="submit">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+      </form>
+      <% if @teams.any?() %>
+        <ul class='list-unstyled'>
+          <% @teams.each do |team| %>
+            <li><%= team.name() %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <h3>None</h3>
+      <% end %>
+    </div>
+  </div>
+
+  <div class='panel panel-info col-sm-6'>
+    <div class="panel-heading">
+      <h3 class="panel-title text-center">
+        Games
+      </h3>
+    </div>
+    <div class="panel-body">
+      <form action="/new/game" method="post">
+        Home:
+        <select id='team_id' name='home_team_id' type='text'>
+          <% @teams.each() do |team| %>
+            <option value="<%= team.id()%>"> <%= team.name() %> </option>
+            <% end %>
+        </select>
+        Away:
+        <select id='team_id' name='away_team_id' type='text'>
+          <% @teams.each() do |team| %>
+            <option value="<%= team.id()%>"> <%= team.name() %> </option>
+            <% end %>
+        </select>
+        <input id='h_score' name='h_score' type = 'number' placeholder='Home Score'/>
+        :
+        <input id='a_score' name='a_score' type = 'number' placeholder='Away Score'/>
+        <button class="btn btn-success"type="submit">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+      </form>
+      <% if @games.any?() %>
+        <ul class='list-unstyled'>
+          <% @games.each do |game| %>
+            <li><%= game.home_teams.first.team.name() %> vs <%= game.away_teams.first.team.name() %> <%= game.h_score %> : <%= game.a_score %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <h3>None</h3>
+      <% end %>
+    </div>
+  </div>
+</div>
